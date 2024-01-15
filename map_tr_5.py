@@ -19,7 +19,7 @@ import pandas as pd
 import streamlit as st
 from streamlit_folium import folium_static
 st.set_page_config(layout ="wide")
-
+import openpyxl as xl
 
 #deneme
 #Ek 3 I-O
@@ -43,47 +43,70 @@ options = st.multiselect(
      'Uşak','Van','Yalova','Yozgat','Zonguldak'],
     ['Istanbul', 'Ankara'])
 
-#st.write('Seçtiğiniz iller:', options)
 
-
-
-#Verileri çek
-#Verileri Çek
-
-#Istanbul
-df = pd.read_excel("ILBAZINDA_2/il_bazinda_gsyh_ifk_a10_cari_deger_v5_TR100.xls",sheet_name="DB")
-
-print(df)
-
-#drop index base. Sırasına göre düşürüyor.
-#df.drop(df.columns[[0, 4, 2]], axis=1, inplace=True)
-
-#df.drop(["Bos", "Bos_2","Bos_3","Bos_4"], axis=1, inplace=True)
-print(df)
-
-#Ankara
-
-df_a = pd.read_excel("ILBAZINDA_2/il_bazinda_gsyh_ifk_a10_cari_deger_v5_TR211.xls",sheet_name="DB")
-
-print(df_a)
-
-#drop index base. Sırasına göre düşürüyor.
-#df.drop(df.columns[[0, 4, 2]], axis=1, inplace=True)
-
-#df_a.drop(["Bos", "Bos_2","Bos_3","Bos_4"], axis=1, inplace=True)
-print(df_a)
-
-
-df_total = df + df_a
-
-print(df_total)
-
-
-df_total.to_excel("OUTPUT/sonuc_1.xlsx")
 
 #veriyi excelden kopyalama
-import openpyxl as xl
+#2. aşama
+#Yüklenecek dosyaların oluşturulması.
+#fonksiyon
+def matris_toplam(il_a,il_b):
+    a = il_a
+    name_1  ="ILBAZINDA_2/il_bazinda_gsyh_ifk_a10_cari_deger_v5_" + a + ".xls"
+    #Istanbul
+    df = pd.read_excel(name_1,sheet_name="DB") 
 
+    b = il_b
+    name_2  ="ILBAZINDA_2/il_bazinda_gsyh_ifk_a10_cari_deger_v5_" + b + ".xls"
+
+    df_a = pd.read_excel(name_2,sheet_name="DB")
+
+    col_names  = df_a.columns
+
+    df_total = df.loc[:,"A01":"T_Kullanim"] + df_a.loc[:,"A01":"T_Kullanim"]
+
+    df_total = df.loc[:,"A01":"T_Kullanim"] + df_a.loc[:,"A01":"T_Kullanim"]
+
+    df_total[['No', 'Bos', 'Kod_1', 'Bos_2', 'Aciklama',]]  =df[['No', 'Bos', 'Kod_1', 'Bos_2', 'Aciklama']]
+    df_total= df_total[col_names]
+    print(df_total)
+
+    c = "Ara_Toplam"
+    name_3  ="ILBAZINDA_2/il_bazinda_gsyh_ifk_a10_cari_deger_v5_" + c + ".xls"    
+    df_total.to_excel(name_3,sheet_name="DB")
+    return df_total
+
+#Listede bulunan illerin kodlarıyla liste oluşturma
+#sehirler = ["Ankara","Konya","Ordu","Kilis","Gaziantep","Istanbul"]
+df_sehirler = pd.DataFrame(options, columns=['Ad'])
+
+dim_1 = pd.read_excel("ILBAZINDA_2/dim_1.xlsx")
+
+merge_1 = pd.merge(df_sehirler, dim_1,on="Ad",how="left")
+liste_il = merge_1["Kod_1"].tolist()
+
+print(merge_1)
+
+#matris_toplam("TR100","TR310")
+
+df_sonuc = pd.DataFrame()
+
+squares = []
+x = 0
+#liste_il = ["TR100","TR310","TR510"]
+for i in liste_il:
+    x =x +1
+    print("x deger")
+    print(x)
+    squares.append(i)
+    print(squares)
+    if len(squares) == 2:
+        df_sum = matris_toplam(squares[0],squares[1])
+        squares.clear()
+        squares.append("Ara_Toplam")
+        if x==len(liste_il):
+            df_sum.to_excel("OUTPUT/sonuc_1.xlsx")
+            
+#3. aşama template oluşturma ve yüklenecek butona aktarma excel dosyayı
 
 # opening the source excel file 
 filename ="OUTPUT/sonuc_1.xlsx"
@@ -135,6 +158,9 @@ def to_excel(df):
     writer.close()
     processed_data = output.getvalue()
     return processed_data
+
+#Aşağıya Bak a3
+#a3
 df_xlsx = to_excel(df)
 
 st.download_button(label='📰 Download Current Result',
@@ -146,7 +172,18 @@ df_2 = pd.read_excel("OUTPUT/sonuc_1.xlsx")
 
 st.write(df_2)
 
-#Harita kısmı
+
+
+
+#Haritanın oluşturulması.
+#4. aşama
+''' Seçili olanlardan renklendirme alanlarını belirleme '''
+df = pd.DataFrame(options)
+
+data = pd.DataFrame(df[0].value_counts())
+data= data.reset_index()
+data.columns = ['Ad', 'Value']
+print(data)
 
 
 #devam
@@ -162,33 +199,6 @@ GeoJson(text).add_to(m)
 #m.save("map_5.html")
 
 
-
-#2. aşama
-
-#data = pd.read_excel("ilbazinda_ksh_2019_2021.xls",sheet_name = "Veri_DLR")
-
-
-df = pd.DataFrame(options)
-
-data = pd.DataFrame(df[0].value_counts())
-data= data.reset_index()
-data.columns = ['Ad', 'Value']
-print(data)
-
-
-
-print(data)
-
-
-
-#data_2021 = data[["Ad",2021]].copy()
-
-
-
-#data_2021[2021] = data_2021[2021]
-
-
-#print(data_2021)
 
 folium.Choropleth(
     geo_data=text,
@@ -209,6 +219,7 @@ folium_static(m, width=920, height=410)
 print(options)
 ''' Seçili olanlardan renklendirme alanlarını belirleme '''
 
+#Console'da görünsün diye var.
 df = pd.DataFrame(options)
 
 df_winners_company = pd.DataFrame(df[0].value_counts())
