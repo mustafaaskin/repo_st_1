@@ -257,7 +257,7 @@ print(options)
 
 #Haritanın oluşturulması.
 #4. aşama
-''' Harita. Seçili il ve/veya illerin alanları renklendirilmektedir. - :blue[Map. The area of Province and/or Provinces are colored.]'''
+''' Harita. Seçili il ve/veya illerin alanları renklendirilmektedir.  --- Map. The area of Province and/or Provinces are colored.'''
 
 if  len(options)>0:
     df = pd.DataFrame(options)
@@ -377,4 +377,12 @@ with col2:
 
 
 
+st.markdown("Dikkat: Sunulan veriler Resmi İstatistik Değildir. Bu uygulamada kullanılan veriler Mustafa AŞKIN tarafından ekonomik etki analizlerinde kullanılmak üzere \
+oluşturulmuştur. Hesaplar oluşturulurken Türkiye İstatistik Kurumunun yayınladığı 2012 Yurtiçi Girdi-Çıktı Tablosu verilerinden,\
+2022 Kurumsal Sektörel Hesaplar, Bölgesel Hesaplar, Yıllık ve Dönemsel Hesaplar verilerinden yararlanılmıştır.")
+st.markdown("Attention: The data provided are not Official Statistics. The data provided in this application is estimated by MustafA AŞKIN \
+for economic impact analysis. Data Source for estimates: 2012 Domestic Input-Output Table, \
+2022 Institutional Sectoral Accounts, Regional Accounts, Annual  and Quarterly Accounts data which are disseminated by Turkish Statistical Institute.")
+
+st.markdown('<a href="https://mustafaaskin.github.io/"> More Information Contact Links</a>',unsafe_allow_html=True)
 
