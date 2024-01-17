@@ -39,7 +39,7 @@ tum_iller  = ['Adana','Adıyaman','Afyon','Ağrı','Aksaray','Amasya','Ankara','
      'Siirt','Sinop','Sivas','Şanlıurfa','Şırnak','Tekirdağ','Tokat','Trabzon','Tunceli',
      'Uşak','Van','Yalova','Yozgat','Zonguldak']
 
-st.title("İl Ayrıntısında, 2022 Türkiye Yurtiçi Girdi-Çıktı Tablosu / :blue[2022 Turkiye Domestic Input-Output Table on Province Level] ")
+
 
 
 
@@ -51,7 +51,11 @@ st.markdown("""
     font-size:27px !important;
 }
 .upbig-font {
-    font-size:33px !important;
+    font-size:29px !important;
+   
+}
+.up-font {
+    font-size:37px !important;
    
 }
 strong {
@@ -59,6 +63,7 @@ strong {
 }
 </style>
 """, unsafe_allow_html=True)
+st.markdown('<p class="up-font">İl Ayrıntısında, 2022 Türkiye Yurtiçi Girdi-Çıktı Tablosu / <strong> 2022 Turkiye Domestic Input-Output Table on Province Level</strong></p>',unsafe_allow_html=True)
 
 st.markdown('<p class="upbig-font">İl ve Bölge Düzeyinde Yurtiçi Girdi-Çıktı Tablosu Oluşturun. / <strong> Create Input-Output Domestic Tables on Province and Regional Level</strong></p>',unsafe_allow_html=True)
 
