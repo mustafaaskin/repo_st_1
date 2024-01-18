@@ -370,7 +370,7 @@ df_gr_1 = df_2['Toplam_ARA_T']
 print(df_gr_1)
 
 df_gr_1  = df_gr_1.iloc[64:77]
-df_gr_2 = df_2["Aciklama"].iloc[64:77]
+df_gr_2 = df_2["Kod_1"].iloc[64:77]
 
 
 print(len(df_gr_2))
