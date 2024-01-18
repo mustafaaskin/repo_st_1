@@ -380,7 +380,7 @@ print(df_gr_2)
 #chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
 #colors  = list(itertools.repeat("#fd0",75))
 with col2:    
-    st.bar_chart(df_g,color=["#297af2"])
+    st.bar_chart(df_g)
     st.markdown("Katma Değer,İşletme Artığı, Çalışanlara Yapılan Ödemeler, Toplam Çıktı, Ara Tüketim, Toplam Kullanım Grafiği - (Toplam_ARA_T Sütunu)")
     st.markdown("Value Added, Operating Income, Compensation for Employees, Total Output, Intermediate Consumption, Total Use Graph - (Toplam_ARA_T Column)")
 
