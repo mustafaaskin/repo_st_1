@@ -368,12 +368,21 @@ print(options)
 
 df_gr_1 = df_2['Toplam_ARA_T']
 print(df_gr_1)
+
+df_gr_1  = df_gr_1.iloc[64:77]
+df_gr_2 = df_2["Aciklama"].iloc[64:77]
+
+
+print(len(df_gr_2))
+
+df_g = pd.DataFrame(df_gr_1.values, index=df_gr_2)
+print(df_gr_2)
 #chart_data = pd.DataFrame(np.random.randn(20, 3), columns=["a", "b", "c"])
 #colors  = list(itertools.repeat("#fd0",75))
 with col2:    
-    st.bar_chart(df_gr_1)
-    st.markdown("Toplam Kullanımlar: Sektörel Ara Tüketim , Ara Tüketim Toplamı, Katma Değer, Üretim Toplamı Grafiği - (Toplam_ARA_T Sütunu)")
-    st.markdown("Total Uses: Sectoral Intermediate Consumption , Intermadiate Consumption Sum Of Sectors, Value Added,  Total Output with Basic Prices - (Toplam_ARA_T Column)")
+    st.bar_chart(df_g,color=["#297af2"])
+    st.markdown("Katma Değer,İşletme Artığı, Çalışanlara Yapılan Ödemeler, Toplam Çıktı, Ara Tüketim, Toplam Kullanım Grafiği - (Toplam_ARA_T Sütunu)")
+    st.markdown("Value Added, Operating Income, Compensation for Employees, Total Output, Intermediate Consumption, Total Use Graph - (Toplam_ARA_T Column)")
 
 
 
@@ -384,5 +393,7 @@ st.markdown("Attention: The data provided are not Official Statistics. The data 
 for economic impact analysis. Data Source for estimates: 2012 Domestic Input-Output Table, \
 2022 Institutional Sectoral Accounts, Regional Accounts, Annual  and Quarterly Accounts data which are disseminated by Turkish Statistical Institute.")
 
-st.markdown('<a href="https://mustafaaskin.github.io/"> More Information Contact Links</a>',unsafe_allow_html=True)
+
+st.markdown('<a href="https://mustafaaskin.github.io/"> Bilgi ve İletişim İçin Linkler </a>',unsafe_allow_html=True)
+st.markdown('<a href="https://mustafaaskin.github.io/"> Links for Information and Contact </a>',unsafe_allow_html=True)
 
