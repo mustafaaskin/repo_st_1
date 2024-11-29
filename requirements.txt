@@ -26,7 +26,7 @@ pyarrow==6.0.1
 pyparsing==3.0.6
 pyxlsb==1.0.10
 python-dateutil==2.8.2
-streamlit==1.40.0
+streamlit==1.40.2
 streamlit-folium==0.6.2
 tabula==1.0.5
 tabula-py==2.3.0
