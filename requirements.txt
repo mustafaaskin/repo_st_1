@@ -24,6 +24,7 @@ Pillow==9.0.0
 plotly==5.5.0
 pyarrow==7.0.0
 pyparsing==3.0.6
+python_version >= '3.10,<3.11'
 pyxlsb==1.0.10
 python-dateutil==2.8.2
 streamlit==1.40.2
